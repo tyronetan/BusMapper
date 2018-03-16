@@ -1,8 +1,7 @@
-desc("Example!");
-task("example",["dependency"], function() {
-	console.log("Example task");
-});
+task("default", ["lint"]);
 
-task("dependency", function() {
-	console.log("dependency");
+desc("lint everything");
+task("lint", [], function() {
+	var lint = require("./build/lint/lint_runner.js");
+	lint.validateFile("jakefile.js", {}, {});
 });
