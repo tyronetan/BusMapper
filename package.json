@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha lib/**/**.spec.js"
+    "test": "jake",
+    "integrate": "jake integrate"
   },
   "repository" :
   { "type" : "git",

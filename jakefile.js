@@ -2,7 +2,11 @@
 
 "use strict";
 
-task("default", ["lint"]);
+var Mocha = require("mocha");
+var mocha = new Mocha({reporter: 'spec', ui: 'bdd'});
+
+desc("Build and test");
+task("default", ["lint", "test"]);
 
 desc("lint everything");
 task("lint", [], function() {
@@ -20,6 +24,15 @@ task("lint", [], function() {
 	var passed = lint.validateFileList(files.toArray(), options, {});
 	if (!passed)
 		fail("Lint failed");
+});
+
+function runTests(cb) {
+	mocha.addFile('./tests/unit/server/_*.unit.js')
+}
+
+desc("Test everything");
+task("test", [], function() {
+	
 });
 
 
