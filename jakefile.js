@@ -17,7 +17,9 @@ task("lint", [], function() {
 		node: true
 	};
 
-	lint.validateFileList(files.toArray(), options, {});
+	var passed = lint.validateFileList(files.toArray(), options, {});
+	if (!passed)
+		fail("Lint failed");
 });
 
 
