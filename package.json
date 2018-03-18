@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jake",
-    "integrate": "jake integrate"
+    "test": "jake"
   },
   "repository" :
   { "type" : "git",
