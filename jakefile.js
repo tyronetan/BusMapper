@@ -27,12 +27,12 @@ task("lint", [], function() {
 });
 
 function runTests(cb) {
-	mocha.addFile('./tests/unit/server/_*.unit.js')
+	mocha.addFile('./tests/unit/server/_*.unit.js');
 }
 
 desc("Test everything");
 task("test", [], function() {
-	
+
 });
 
 
