@@ -1,0 +1,9 @@
+{
+	"node":true,
+	"jquery":true,
+	"multistr":true,
+	"esversion": 6,
+	"strict":true,
+	"globalstrict" : true,
+	"mocha" : true
+}
