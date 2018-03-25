@@ -6,9 +6,9 @@
   "scripts": {
     "test": "gulp default"
   },
-  "repository" :
-  { "type" : "git",
-    "url" : "https://github.com/tyronetan/BusMapper.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tyronetan/BusMapper.git"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,12 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.0.4"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-istanbul": "^1.1.3",
+    "gulp-jshint": "^2.1.0",
+    "gulp-mocha": "^5.0.0",
+    "jshint": "^2.9.5"
   }
 }
