@@ -10,13 +10,13 @@ script:
     - npm test
 after_success:
     - "git config user.name 'Travis CI - Tyrone'"
-    - "git config user.email <new_overlord@yahoo.com>"
+    - "git config user.email 'new_overlord@yahoo.com'"
     - "git checkout master"
     - "git pull"
     - "npm test"
-    - "git checkout origin integration"
+    - "git checkout -b integration --track origin/integration"
     - "git merge master --no-ff --log"
-    - "git push"
+    - "git push ssh://git@github.com/tyronetan/BusMapper.git"
     - "git checkout master"
 
 # blocklist
