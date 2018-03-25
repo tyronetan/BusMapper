@@ -6,4 +6,17 @@ node_js:
     - "node"
 install: npm install
 before_script: npm install -g gulp-cli
-script: npm test
+script: 
+    - npm test
+after_success:
+    - "git checkout master"
+    - "git pull"
+    - "npm test"
+    - "git checkout integration"
+    - "git merge master --no-ff --log"
+    - "git checkout master"
+
+# blocklist
+branches:
+  except:
+    - integration
