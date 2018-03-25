@@ -9,10 +9,12 @@ before_script: npm install -g gulp-cli
 script: 
     - npm test
 after_success:
+    - "git config user.name 'Travis CI - Tyrone'"
+    - "git config user.email <new_overlord@yahoo.com>"
     - "git checkout master"
     - "git pull"
     - "npm test"
-    - "git checkout integration"
+    - "git checkout origin integration"
     - "git merge master --no-ff --log"
     - "git push"
     - "git checkout master"
