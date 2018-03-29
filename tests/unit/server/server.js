@@ -12,17 +12,18 @@ var fs = require("fs");
 
 
 chai.use(chaiHttp);
+var port = 8880;
+let host = "http://localhost";
 
-function requestHttp(host, port, callback) {
-	chai.request(host + ":" + port)
+function requestHttp(host, link, callback) {
+	chai.request(host + ":" + port + link)
 		.get("/")
 		.end(callback);
 }
 
 
 describe("server", function() {
-let port = 8880;
-let host = "http://localhost";
+    	this.timeout(15000);
 
 	it("should pass on 3 = 3", function(done) {
 		expect(3).to.equals(3);
@@ -45,9 +46,28 @@ let host = "http://localhost";
 		var testData = "This is my test text data";
 
 		fs.writeFileSync(testFile, testData);
-		server.start(port);
-		requestHttp(host, port, (err, req) => {
+		server.start(port, testFile);
+		requestHttp(host, "", (err, req) => {
+			expect(req).to.have.status(200);
 			expect(req.text).to.be.equals(testData);
+			server.stop(() => {
+				fs.unlinkSync(testFile);
+				expect(!fs.existsSync(testFile)).to.be.equals(true);
+				done();
+			});
+		});
+
+	});
+
+	it("should serve a 404 page for everything except home page", (done) => {
+		var testDir = "./src/server/generated/test";
+		var testFile = testDir + "/test.html";
+		var testData = "This is my test text data";
+
+		fs.writeFileSync(testFile, testData);
+		server.start(port, testFile);
+		requestHttp(host, "/foobar", (err, req) => {
+			expect(req).to.have.status(404);
 			server.stop(() => {
 				fs.unlinkSync(testFile);
 				expect(!fs.existsSync(testFile)).to.be.equals(true);

@@ -4,18 +4,24 @@ var fs = require("fs");
 
 
 var server;
+var defaultServerURL = "./src/server/file.html";
 
-exports.start = function(portNumber) {
+exports.start = function(portNumber, htmlFileToServe=defaultServerURL) {
 	if(!portNumber) throw new Error("Server requires a port number");
 
 	server = http.createServer();
 	server.on("request", function(request, response) {
-		console.log("Received request");
-
-		fs.readFile("src/server/generated/test/test.html", (err, data) => {
-			if(err) throw err;
-			response.end(data);
-		});
+		console.log("Received request from url " + request.url);
+		if(request.url === "/") {
+			fs.readFile(htmlFileToServe, (err, data) => {
+				if(err) throw err;
+				response.end(data);
+			});
+		}
+		else {
+			response.statusCode = 404;
+			response.end();
+		}
 
 	});
 
