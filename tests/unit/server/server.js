@@ -40,7 +40,7 @@ describe("server", function() {
 	// 	})
 	// });
 
-	it("should serve a file", (done) => {
+	it("should serve home page from file", (done) => {
 		var testDir = "./src/server/generated/test";
 		var testFile = testDir + "/test.html";
 		var testData = "This is my test text data";
@@ -51,8 +51,22 @@ describe("server", function() {
 			expect(req).to.have.status(200);
 			expect(req.text).to.be.equals(testData);
 			server.stop(() => {
-				fs.unlinkSync(testFile);
-				expect(!fs.existsSync(testFile)).to.be.equals(true);
+				done();
+			});
+		});
+	});
+
+	it("should serve home page when asked for index", (done) => {
+		var testDir = "./src/server/generated/test";
+		var testFile = testDir + "/test.html";
+		var testData = "This is my test text data";
+
+		fs.writeFileSync(testFile, testData);
+		server.start(port, testFile);
+		requestHttp(host, "/index.html", (err, req) => {
+			expect(req).to.have.status(200);
+			expect(req.text).to.be.equals(testData);
+			server.stop(() => {
 				done();
 			});
 		});
@@ -61,16 +75,12 @@ describe("server", function() {
 
 	it("should serve a 404 page for everything except home page", (done) => {
 		var testDir = "./src/server/generated/test";
-		var testFile = testDir + "/test.html";
-		var testData = "This is my test text data";
+		var testUrl = testDir + "/test.html";
 
-		fs.writeFileSync(testFile, testData);
-		server.start(port, testFile);
+		server.start(port, testUrl);
 		requestHttp(host, "/foobar", (err, req) => {
 			expect(req).to.have.status(404);
 			server.stop(() => {
-				fs.unlinkSync(testFile);
-				expect(!fs.existsSync(testFile)).to.be.equals(true);
 				done();
 			});
 		});
