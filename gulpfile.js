@@ -4,13 +4,23 @@ var gulp = require("gulp");
 var jshint = require("gulp-jshint");
 var mocha = require("gulp-mocha");
 var istanbul = require("gulp-istanbul");
+var del = require("del");
 var exitCode = 0;
+
+const GENERATED_DIR = "generated"
+const TEMP_TESTFILE_DIR = GENERATED_DIR + "/test";
 
 function desc(msg) {
 	console.log(msg);
 }
 
-gulp.task("default", ["lint", "test"]);
+gulp.task("default", ["clean", "lint", "test"]);
+
+
+desc("Delete all generated files");
+gulp.task("clean", () => {
+	return del(TEMP_TESTFILE_DIR + "/**", {force: true});
+});
 
 desc("lint everything");
 gulp.task("lint", function() {
