@@ -5,7 +5,7 @@ var chai = require("chai"),
 	should = chai.should(),
 	expect = chai.expect;
 var assert = require("assert");
-var server = require("../../../src/server/server.js");
+var server = require("../../src/server/server.js");
 var http = require("http");
 var chaiHttp = require("chai-http");
 var fs = require("fs");
@@ -17,7 +17,7 @@ let host = "http://localhost";
 
 function requestHttp(host, link, callback) {
 	chai.request(host + ":" + port + link)
-		.get("/")
+		.get("")
 		.end(callback);
 }
 

@@ -39,7 +39,7 @@ gulp.task("test", function() {
 		this.emit('end');
 	}
 
-	return gulp.src(["tests/**/**/*.js", "tests/**/*.js"])
+	return gulp.src(["tests/**/*.js"])
 		.pipe(mocha({reporter: 'min'})).on("error", handleError);
 });
 
