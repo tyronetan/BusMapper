@@ -23,7 +23,7 @@ function requestHttp(host, link, callback) {
 
 
 describe("server", function() {
-    	this.timeout(15000);
+    this.timeout(15000);
 
 	it("should pass on 3 = 3", function(done) {
 		expect(3).to.equals(3);
